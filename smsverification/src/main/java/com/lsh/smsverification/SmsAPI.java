@@ -35,9 +35,9 @@ public class SmsAPI {
      * 初始化SDK,ShareSDK是可以多次初始化的,如何在应用中多次调用
      *
      * @param context 这里面最好传入app的Context,这样不容易造成内存泄漏
-     * @param appKey
-     * @param appSecret
-     * @return
+     * @param appKey 传入ShareSDK申请的appKey
+     * @param appSecret 传入ShareSDK申请的appSecret
+     * @return SmsAPI
      */
     public SmsAPI initSDK(Context context, String appKey, String appSecret) {
         mContext = context;
@@ -49,8 +49,8 @@ public class SmsAPI {
 
     /**
      * 如果不调用这个方法,将使用默认的国家码
-     * @param countryCode
-     * @return
+     * @param countryCode 设置国家码,不设置将使用当前网路所在的国际码
+     * @return SmsAPI
      */
     public SmsAPI setCountryCode(String countryCode) {
         mCountryCode = countryCode;
@@ -71,9 +71,9 @@ public class SmsAPI {
 
     /**
      *
-     * @param verificationCode
-     * @param verification_state
-     * @return
+     * @param verificationCode 验证码
+     * @param verification_state 发送验证码的状态(结果)
+     * @return SmsAPI
      */
     public SmsAPI sendVerificationCode(String verificationCode, Verification_State verification_state) {
         mVerificationCode = verificationCode;

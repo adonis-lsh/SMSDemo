@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -31,4 +31,13 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/SMSSDK-2.1.3.jar')
+}
+
+publish {
+    userOrg = 'bendaidai'//bintray.com用户名
+    groupId = 'com.lsh.smsverification'//jcenter上的路径
+    artifactId = 'smsverification'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = '一个只需三行代码就能实现短信验证码的一个库'//描述，不重要
+    website = 'https://github.com/adonis-lsh/SMSDemo'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }
