@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        disable 'InconsistentArrays', 'OldTargetApi', 'GradleOverrides', 'MissingTranslation', 'UnusedResources', 'GoogleAppIndexingWarning'
+    }
 }
 repositories {
     flatDir {
@@ -27,5 +30,5 @@ repositories {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile name: 'SMSSDK-2.1.3', ext: 'aar'
+    compile files('libs/SMSSDK-2.1.3.jar')
 }
