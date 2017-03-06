@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -23,7 +22,7 @@ import static android.content.ContentValues.TAG;
 
 public class SmsAPI {
 
-    private static final int SUCCESS = 1;
+    public static final int SUCCESS_CODE = 1;
     private String mPhoneNum;
     private Send_State mSend_state;
     private String Tag = "SmsAPI";
@@ -111,32 +110,34 @@ public class SmsAPI {
                     //提交验证码成功
                     Log.e(TAG, "提交验证码成功" + data.toString());
                     if (mVerification_state != null) {
-                        mVerification_state.sendVerificationCodeResult(SUCCESS);
+                        mVerification_state.sendVerificationCodeResult(SUCCESS_CODE,"成功");
                     }
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //获取验证码成功
                     Log.e(TAG, "获取验证码成功" + data.toString());
                     if (mSend_state != null) {
-                        mSend_state.sendPhoneResult(SUCCESS);
+                        mSend_state.sendPhoneResult(SUCCESS_CODE,"成功");
                     }
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                     //返回支持发送验证码的国家列表
                     Log.e(TAG, "返回支持发送验证码的国家列表" + data.toString());
                 }
             } else {
-//				((Throwable) data).printStackTrace();
-//				Toast.makeText(MainActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
-//					Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
-                    int status = 0;
+                    int status;
                     try {
                         ((Throwable) data).printStackTrace();
                         Throwable throwable = (Throwable) data;
-
                         JSONObject object = new JSONObject(throwable.getMessage());
                         String des = object.optString("detail");
                         status = object.optInt("status");
+                        Log.e(TAG, status + "");
                         if (!TextUtils.isEmpty(des)) {
-                            Toast.makeText(mContext, des, Toast.LENGTH_SHORT).show();
+                            if (mSend_state != null) {
+                                mSend_state.sendPhoneResult(status,des);
+                            }
+                            if (mVerification_state != null) {
+                                mVerification_state.sendVerificationCodeResult(status,des);
+                            }
                             return;
                         }
                     } catch (Exception e) {
@@ -157,11 +158,11 @@ public class SmsAPI {
      * 服务器发送验证码的状态
      */
     public interface Send_State {
-        void sendPhoneResult(int stateCode);
+        void sendPhoneResult(int stateCode,String des);
     }
 
     public interface Verification_State {
-        void sendVerificationCodeResult(int stateCode);
+        void sendVerificationCodeResult(int stateCode,String des);
     }
 
 }
