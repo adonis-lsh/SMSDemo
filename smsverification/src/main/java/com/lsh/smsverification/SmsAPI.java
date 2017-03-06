@@ -28,6 +28,7 @@ public class SmsAPI {
     private String Tag = "SmsAPI";
     private Context mContext;
     private String mCountryCode;
+    private String mVerificationCode;
     private Verification_State mVerification_state;
 
     /**
@@ -63,6 +64,7 @@ public class SmsAPI {
     public SmsAPI sendVerifyPhoneNum(String phoneNum, Send_State send_state) {
         mPhoneNum = phoneNum;
         mSend_state = send_state;
+        Log.e(Tag, mCountryCode);
         SMSSDK.getVerificationCode(mCountryCode, mPhoneNum);
         return this;
     }
@@ -74,6 +76,7 @@ public class SmsAPI {
      * @return
      */
     public SmsAPI sendVerificationCode(String verificationCode, Verification_State verification_state) {
+        mVerificationCode = verificationCode;
         mVerification_state = verification_state;
         if (TextUtils.isEmpty(mCountryCode)) {
             Log.e(Tag, "请调用initSDK()初始化手机号");
@@ -152,7 +155,6 @@ public class SmsAPI {
         SMSSDK.unregisterAllEventHandler();
         return this;
     }
-
 
     /**
      * 服务器发送验证码的状态
