@@ -54,3 +54,7 @@
         		mSmsAPI.cancelCall();
     		}
 ```
+
+### 对于短信的智能验证后面会陆续加上去,对于常见错误码请看ShareSdk,也可以看demo中的
+![](http://i.imgur.com/oJO9h5t.png)
+![](http://i.imgur.com/VSFrvVF.png)
