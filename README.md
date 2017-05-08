@@ -1,4 +1,6 @@
 # 只需三行代码就能实现短信的验证(ShareSDK的简单封装)
+## 记得关闭ShareSDK后台的的智能验证
+![](http://opgkgu3ek.bkt.clouddn.com/17-5-8/46557483-file_1494227113157_5149.png)
 ## 先上图:
 ![](http://i.imgur.com/yyf5OY8.png)
 ## 使用方法
